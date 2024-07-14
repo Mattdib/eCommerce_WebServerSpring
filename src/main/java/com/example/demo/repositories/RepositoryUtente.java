@@ -10,6 +10,7 @@ import java.util.List;
 public interface RepositoryUtente extends JpaRepository<Utente, Integer> {
 
     //ricerca per proprietà Utente:
+    Utente findById(int id);
     List<Utente> findByNome(String nome);
     List<Utente> findByCognome(String cognome);
     List<Utente> findByNomeAndCognome(String nome, String cognome);

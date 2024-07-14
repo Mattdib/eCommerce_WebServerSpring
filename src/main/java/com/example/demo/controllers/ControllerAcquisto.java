@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.Acquisto;
+import com.example.demo.entities.ProdottoInAcquisto;
 import com.example.demo.entities.Utente;
 import com.example.demo.services.ServiceAcquisto;
 import com.example.demo.support.*;
@@ -23,12 +24,14 @@ public class ControllerAcquisto {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public ResponseEntity aggiungiAcquisto(@RequestBody @Valid Acquisto acquisto) { // è buona prassi ritornare l'oggetto inserito
+    public ResponseEntity aggiungiAcquisto(@RequestParam( name = "idUtente")int id, @RequestBody List<ProdottoInAcquisto> listaProdotti) { // è buona prassi ritornare l'oggetto inserito
         try {
-            Acquisto risultato= serviceAcquisto.aggiungiAcquisto(acquisto);
-            return new ResponseEntity<>(risultato, HttpStatus.OK);
+            serviceAcquisto.aggiungiAcquisto(id, listaProdotti);
+            return new ResponseEntity<>(new ResponseMessage("Purchase added with success!"), HttpStatus.OK);
         } catch (QuantityProductUnavailableException e) {
-            return new ResponseEntity<>(new ResponseMessage("La quantità del prodotto " + e.getNomeProdotto() + " non è disponibile!"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseMessage("The quantity of the product: " + e.getNomeProdotto() + " is unavailable!"), HttpStatus.BAD_REQUEST);
+        }catch (UserNotFoundException e){
+            return new ResponseEntity<>(new ResponseMessage("User not found"), HttpStatus.NOT_FOUND);
         }
     }
 

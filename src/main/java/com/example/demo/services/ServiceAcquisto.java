@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServiceAcquisto {
@@ -30,11 +31,19 @@ public class ServiceAcquisto {
     @Autowired
     private RepositoryProdotti repoProdotti;
 
-    //TODO: sistemare metodo di acquisto
+
     //Metodo che implementa il servizio di acquisto di un prodotto:
     //(!L'oggetto Acquisto contiene sia la lista dei prodotti acquistati ma anche la quantità per ciascun prodotto acquistato)
     @Transactional(readOnly = false, rollbackFor = Exception.class)
-    public Acquisto aggiungiAcquisto(Acquisto acquisto) throws QuantityProductUnavailableException{
+    public Acquisto aggiungiAcquisto(int id, List<ProdottoInAcquisto> listaProdotti) throws QuantityProductUnavailableException, UserNotFoundException{
+        //creazione acqusito dai dati ricevuti dal client:
+        Acquisto acquisto = new Acquisto();
+        if(!repoUtente.existsById(id)){
+            throw new UserNotFoundException();
+        }
+        Utente acquirente= repoUtente.findById(id);
+        acquisto.setAcquirente(acquirente);
+        acquisto.setProdottiInAcquisto(listaProdotti);
         Acquisto risultato = repoAcquisti.save(acquisto); //rendo l'oggetto acquisto PERSISTENTE e mi prendo l'oggetto GESTITO
         for ( ProdottoInAcquisto p : risultato.getProdottiInAcquisto() ) {
             p.setAcquisto(risultato);
@@ -113,3 +122,28 @@ public class ServiceAcquisto {
     }
 
 }
+
+/*
+    //Metodo che implementa il servizio di acquisto di un prodotto:
+    //(!L'oggetto Acquisto contiene sia la lista dei prodotti acquistati ma anche la quantità per ciascun prodotto acquistato)
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public Acquisto aggiungiAcquisto(Acquisto acquisto) throws QuantityProductUnavailableException{
+        Acquisto risultato = repoAcquisti.save(acquisto); //rendo l'oggetto acquisto PERSISTENTE e mi prendo l'oggetto GESTITO
+        for ( ProdottoInAcquisto p : risultato.getProdottiInAcquisto() ) {
+            p.setAcquisto(risultato);
+            ProdottoInAcquisto inserito = repoProdottoInAcquisto.save(p); //rendo l'oggetto ProdottoInAcquisto p PERSISTENTE all'interno della tabella prodotto_in_acquisto
+            entityManager.refresh(inserito); //eseguo la refresh() affinche gli venga assegnato l'id univoco all'entità gestita
+            Prodotto prodotto = repoProdotti.findById(inserito.getProdotto().getId());
+            //DEBUG:
+            System.out.println(prodotto.toString());
+            int qtaRimanente =  prodotto.getQuantita() - p.getQuantitaAcquistata();
+            if ( qtaRimanente < 0 ) {
+                throw new QuantityProductUnavailableException(prodotto.getNome());
+            }
+            prodotto.setQuantita(qtaRimanente);
+            entityManager.refresh(p);
+        }
+        entityManager.refresh(risultato);
+        return risultato;
+    }
+ */

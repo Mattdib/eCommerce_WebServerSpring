@@ -1,5 +1,6 @@
 package com.example.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -29,9 +30,11 @@ public class Acquisto {
 
     @ManyToOne
     @JoinColumn(name = "acquirente")
+    @JsonIgnore
     private Utente acquirente; //utente che ha effettuato l'acquisto
 
     @OneToMany(targetEntity = ProdottoInAcquisto.class, mappedBy = "acquisto", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ProdottoInAcquisto> prodottiInAcquisto;
 
 
