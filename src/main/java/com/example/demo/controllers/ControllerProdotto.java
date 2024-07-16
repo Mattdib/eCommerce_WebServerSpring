@@ -51,9 +51,6 @@ public class ControllerProdotto {
     @GetMapping("/listaProdPaginata")
     public ResponseEntity visualizzaTuttiPaginata(@RequestParam(value = "numeroPagina", defaultValue = "0") int numeroPagina, @RequestParam(value = "dimPagina", defaultValue = "10") int dimPagina, @RequestParam(value = "ordinaPer", defaultValue = "id") String ordinaPer) {
         List<Prodotto> risultato = serviceProdotto.mostraListaProdotti(numeroPagina, dimPagina, ordinaPer);
-        if ( risultato.isEmpty()) {
-            return new ResponseEntity<>(new ResponseMessage("Nessun risultato!"), HttpStatus.OK);
-        }
         return new ResponseEntity<>(risultato, HttpStatus.OK);
     }
 
@@ -108,12 +105,8 @@ public class ControllerProdotto {
                                           @RequestParam(value = "descrizione", required = false) String descrizione,
                                           @RequestParam(value = "prezzomin", required = false) Float prezzomin,
                                           @RequestParam(value = "prezzomax", required = false) Float prezzomax) {
-        try {
-            List<Prodotto> risultato = serviceProdotto.ricercaAvanzata(nome, descrizione, prezzomin, prezzomax);
-            return new ResponseEntity<>(risultato, HttpStatus.OK);
-        }catch (EmptyList e){
-            return new ResponseEntity<>(new ResponseMessage("Non esiste un prodotto che rispetta le impostazioni indicate!"), HttpStatus.BAD_REQUEST);
-        }
+        List<Prodotto> risultato = serviceProdotto.ricercaAvanzata(nome, descrizione, prezzomin, prezzomax);
+        return new ResponseEntity<>(risultato, HttpStatus.OK);
     }
 
 

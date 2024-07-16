@@ -106,11 +106,8 @@ public class ServiceProdotto {
     }
 
     @Transactional(readOnly = true)
-    public List<Prodotto> ricercaAvanzata(String nome,String descrizione, Float prezzomin, Float prezzomax) throws EmptyList {
+    public List<Prodotto> ricercaAvanzata(String nome,String descrizione, Float prezzomin, Float prezzomax) {
         List<Prodotto> risultato = repositoryProdotti.advancedSearch(nome, descrizione, prezzomin, prezzomax);
-        if(risultato.isEmpty()){
-            throw new EmptyList();
-        }
         return risultato;
     }
 
