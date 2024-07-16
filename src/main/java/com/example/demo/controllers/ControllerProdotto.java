@@ -59,12 +59,8 @@ public class ControllerProdotto {
 
     @GetMapping("/ricercaPerNome")
     public ResponseEntity visualizzaPerNome(@RequestParam(value = "name") String nome) {
-        try {
-            List<Prodotto> risultato = serviceProdotto.mostraProdottiPerNome(nome);
-            return new ResponseEntity<>(risultato, HttpStatus.OK);
-        }catch (EmptyList e){
-            return new ResponseEntity<>(new ResponseMessage("Non esiste un prodotto con questo nome!"), HttpStatus.BAD_REQUEST);
-        }
+        List<Prodotto> risultato = serviceProdotto.mostraProdottiPerNome(nome);
+        return new ResponseEntity<>(risultato, HttpStatus.OK);
     }
 
     @GetMapping("/ricercaPerBarCode/{barCode}")

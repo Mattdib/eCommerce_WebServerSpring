@@ -65,11 +65,8 @@ public class ServiceProdotto {
     }
 
     @Transactional(readOnly = true)
-    public List<Prodotto> mostraProdottiPerNome(String name) throws EmptyList {
+    public List<Prodotto> mostraProdottiPerNome(String name) {
         List<Prodotto> risultato = repositoryProdotti.findByNomeContaining(name);
-        if(risultato.isEmpty()){
-            throw new EmptyList();
-        }
         return risultato;
     }
 
