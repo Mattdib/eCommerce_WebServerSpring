@@ -35,20 +35,6 @@ public class ControllerAcquisto {
         }
     }
 
-    /*
-    //Effettua la rimozione dai dati persistenti dell'acquisto con id passato in input dal client andando a restituire
-    //la lista degli acquisti effettuati dall'utente che era "acquirente" dell'acquisto rimosso:
-    @DeleteMapping("/rimuovi")
-    public ResponseEntity rimuoviAcquisto(@RequestParam(value = "id") int id) {
-        try{
-            List<Acquisto> listaAcquisti = serviceAcquisto.rimuoviAcquisto(id);
-            return new ResponseEntity<>(listaAcquisti, HttpStatus.OK);
-        }catch (AcquistoNotFoundException e){
-            return new ResponseEntity<>(new ResponseMessage("Acquisto non trovato!"), HttpStatus.NOT_FOUND);
-        }
-    }
-    */
-
     @GetMapping("/{user}")
     public List<Acquisto> getAcquistiUtente(@PathVariable Utente user) {
         try {
