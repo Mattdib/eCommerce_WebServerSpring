@@ -106,8 +106,8 @@ public class ServiceProdotto {
     }
 
     @Transactional(readOnly = true)
-    public List<Prodotto> ricercaAvanzata(String nome,String descrizione, Float prezzomin, Float prezzomax) {
-        List<Prodotto> risultato = repositoryProdotti.advancedSearch(nome, descrizione, prezzomin, prezzomax);
+    public List<Prodotto> ricercaAvanzata(String nome,String descrizione, Float prezzomin, Float prezzomax, String type) {
+        List<Prodotto> risultato = repositoryProdotti.advancedSearch(nome, descrizione, prezzomin, prezzomax, type);
         return risultato;
     }
 

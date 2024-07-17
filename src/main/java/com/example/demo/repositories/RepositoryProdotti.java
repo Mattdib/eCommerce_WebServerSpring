@@ -34,6 +34,6 @@ public interface RepositoryProdotti extends JpaRepository<Prodotto, Integer> {
             "FROM Prodotto p " +
             "WHERE (p.nome LIKE ?1 OR ?1 IS NULL) AND " +
             "      (p.descrizione LIKE ?2 OR ?2 IS NULL) AND" +
-            "      (p.prezzo >= ?3 OR ?3 IS NULL) AND (p.prezzo <= ?4 OR ?4 IS NULL)")
-    List<Prodotto> advancedSearch(String name, String description, Float prezzomin, Float prezzomax);
+            "      (p.prezzo >= ?3 OR ?3 IS NULL) AND (p.prezzo <= ?4 OR ?4 IS NULL) AND (p.type LIKE ?5 OR ?5 IS NULL)")
+    List<Prodotto> advancedSearch(String name, String description, Float prezzomin, Float prezzomax, String type);
 }

@@ -39,6 +39,9 @@ public class Prodotto {
     @Column(nullable = false)
     private String imagePath;
 
+    @Column(nullable = false)
+    private String type;
+
     @Version
     @Column(nullable = false)
     @JsonIgnore
@@ -49,3 +52,7 @@ public class Prodotto {
     @ToString.Exclude
     private List<ProdottoInAcquisto> prodottoInAcquisti; //lista degli Acquisti in cui è contenuto questo prodotto
 }
+
+/*
+types: -- 1: SHOES, 2: CONSOLE, 3: CAMERA, 4: PC, 5: SMARTPHONE, 6: HEADPHONE, 7: WATCH, 8: KEYBOARD
+ */

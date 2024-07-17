@@ -104,8 +104,9 @@ public class ControllerProdotto {
     public ResponseEntity ricercaAvanzata(@RequestParam(value = "nome", required = false) String nome,
                                           @RequestParam(value = "descrizione", required = false) String descrizione,
                                           @RequestParam(value = "prezzomin", required = false) Float prezzomin,
-                                          @RequestParam(value = "prezzomax", required = false) Float prezzomax) {
-        List<Prodotto> risultato = serviceProdotto.ricercaAvanzata(nome, descrizione, prezzomin, prezzomax);
+                                          @RequestParam(value = "prezzomax", required = false) Float prezzomax,
+                                          @RequestParam(value = "type", required = false) String type){
+        List<Prodotto> risultato = serviceProdotto.ricercaAvanzata(nome, descrizione, prezzomin, prezzomax, type);
         return new ResponseEntity<>(risultato, HttpStatus.OK);
     }
 
