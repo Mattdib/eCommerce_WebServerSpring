@@ -63,20 +63,6 @@ public class ServiceAcquisto {
         return risultato;
     }
 
-    /*
-    //Effettuo la rimozione del seguente acqusito andando a restituire in output al controller la lista degli acquisti
-    //rimanenti che l'utente ha effettuato fino a quel momento: (metodo inutile poichè quando un utente ha effettuato un acquisto non può più annullarlo)
-    public List<Acquisto> rimuoviAcquisto(int idAcquisto) throws AcquistoNotFoundException {
-        if(!repoAcquisti.existsById(idAcquisto)) {
-            throw new AcquistoNotFoundException();
-        }
-        Acquisto daRimuovere = repoAcquisti.getById(idAcquisto);
-        Utente acquirente = daRimuovere.getAcquirente();
-        repoAcquisti.deleteById(idAcquisto);
-        return acquirente.getListaAcquisti();
-    }
-     */
-
     @Transactional(readOnly = true)
     public List<Acquisto> getAllAcquistiUtente(Utente user) throws UserNotFoundException, EmptyList {
         if ( !repoUtente.existsById(user.getId()) ) {
@@ -122,28 +108,3 @@ public class ServiceAcquisto {
     }
 
 }
-
-/*
-    //Metodo che implementa il servizio di acquisto di un prodotto:
-    //(!L'oggetto Acquisto contiene sia la lista dei prodotti acquistati ma anche la quantità per ciascun prodotto acquistato)
-    @Transactional(readOnly = false, rollbackFor = Exception.class)
-    public Acquisto aggiungiAcquisto(Acquisto acquisto) throws QuantityProductUnavailableException{
-        Acquisto risultato = repoAcquisti.save(acquisto); //rendo l'oggetto acquisto PERSISTENTE e mi prendo l'oggetto GESTITO
-        for ( ProdottoInAcquisto p : risultato.getProdottiInAcquisto() ) {
-            p.setAcquisto(risultato);
-            ProdottoInAcquisto inserito = repoProdottoInAcquisto.save(p); //rendo l'oggetto ProdottoInAcquisto p PERSISTENTE all'interno della tabella prodotto_in_acquisto
-            entityManager.refresh(inserito); //eseguo la refresh() affinche gli venga assegnato l'id univoco all'entità gestita
-            Prodotto prodotto = repoProdotti.findById(inserito.getProdotto().getId());
-            //DEBUG:
-            System.out.println(prodotto.toString());
-            int qtaRimanente =  prodotto.getQuantita() - p.getQuantitaAcquistata();
-            if ( qtaRimanente < 0 ) {
-                throw new QuantityProductUnavailableException(prodotto.getNome());
-            }
-            prodotto.setQuantita(qtaRimanente);
-            entityManager.refresh(p);
-        }
-        entityManager.refresh(risultato);
-        return risultato;
-    }
- */
