@@ -50,6 +50,7 @@ public class ServiceAcquisto {
             ProdottoInAcquisto inserito = repoProdottoInAcquisto.save(p); //rendo l'oggetto ProdottoInAcquisto p PERSISTENTE all'interno della tabella prodotto_in_acquisto
             entityManager.refresh(inserito); //eseguo la refresh() affinche gli venga assegnato l'id univoco all'entità gestita
             Prodotto prodotto = repoProdotti.findById(inserito.getProdotto().getId());
+            entityManager.refresh(prodotto);
             //DEBUG:
             System.out.println(prodotto.toString());
             int qtaRimanente =  prodotto.getQuantita() - p.getQuantitaAcquistata();
