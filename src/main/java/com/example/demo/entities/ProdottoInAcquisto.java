@@ -30,7 +30,7 @@ public class ProdottoInAcquisto {
     @Column(nullable = false)
     private int quantitaAcquistata;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "prodotto")
     private Prodotto prodotto;
 }

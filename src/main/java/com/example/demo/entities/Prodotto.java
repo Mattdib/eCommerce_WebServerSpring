@@ -47,7 +47,7 @@ public class Prodotto {
     @JsonIgnore
     private long version;
 
-    @OneToMany(targetEntity = ProdottoInAcquisto.class, mappedBy = "prodotto", cascade = CascadeType.MERGE)
+    @OneToMany(targetEntity = ProdottoInAcquisto.class, mappedBy = "prodotto")
     @JsonIgnore
     @ToString.Exclude
     private List<ProdottoInAcquisto> prodottoInAcquisti; //lista degli Acquisti in cui è contenuto questo prodotto
