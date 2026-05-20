@@ -1,10 +1,10 @@
-# 🛒 eCommerce Web Server — Spring Boot
+# - eCommerce Web Server — Spring Boot
 
 Backend REST API per una piattaforma di e-commerce, sviluppata con **Spring Boot 3** e **MySQL**. Espone endpoint per la gestione di prodotti, utenti e acquisti seguendo un'architettura a livelli (Controller → Service → Repository → Entity).
 
 ---
 
-## 🚀 Tecnologie
+## - Tecnologie
 
 | Tecnologia | Versione |
 |---|---|
@@ -40,7 +40,7 @@ src/main/java/com/example/demo/
 
 ---
 
-## 🔌 Endpoint API
+## - Endpoint API
 
 ### Prodotti — `/prodotti`
 
@@ -73,7 +73,7 @@ Gestione degli utenti registrati sulla piattaforma.
 
 ---
 
-## ⚙️ Configurazione
+## - Configurazione
 
 Il file `src/main/resources/application.yaml` contiene la configurazione del datasource:
 
@@ -92,7 +92,7 @@ spring:
 
 ---
 
-## 🛠️ Avvio del progetto
+## - Avvio del progetto
 
 **Prerequisiti:** Java 17+, Maven, MySQL in esecuzione.
 
@@ -109,6 +109,6 @@ Il server sarà disponibile su `http://localhost:8080`.
 
 ---
 
-## 👤 Autore
+## - Autore
 
 **Mattia** — [@Mattdib](https://github.com/Mattdib)
